@@ -3,6 +3,8 @@ package;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
+import flixel.text.FlxText;
+import flixel.util.FlxColor;
 
 class PlayState extends FlxState
 {
@@ -20,6 +22,8 @@ class PlayState extends FlxState
 		bg = new FlxSprite(0, 0, "assets/images/jungle.png");
 		bg.shader = shader;
 		add(bg);
+
+		initHelpDisplay();
 	}
 
 	override public function update(elapsed:Float)
@@ -35,5 +39,16 @@ class PlayState extends FlxState
 		{
 			isShaderEnabled = !isShaderEnabled;
 		}
+	}
+
+	function initHelpDisplay()
+	{
+		var helpBg = new FlxSprite(0, 396);
+		helpBg.makeGraphic(FlxG.width, FlxG.height - 396, FlxColor.BLACK);
+		add(helpBg);
+
+		var helpText = new FlxText(0, 419, 512, "Press f to toggle shader update off and on", 20);
+		helpText.alignment = CENTER;
+		add(helpText);
 	}
 }
