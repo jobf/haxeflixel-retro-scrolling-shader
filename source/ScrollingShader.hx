@@ -11,7 +11,7 @@ class ScrollingShader extends FlxShader
 	@:glFragmentSource("
 	#pragma header
 
-	// x : < 1 = false, 1 = true
+	// x : 0 = false, 1 = true
 	// y : position of splity on y axis
 	// z : amount to scroll by
 	uniform vec3 splitA;
@@ -20,16 +20,19 @@ class ScrollingShader extends FlxShader
 		return mod(toWrap, 1);
 	}
 	
+	float when_eq(float a, float b) {
+		return 1.0 - abs(sign(a - b));
+	}
+
+	float when_lt(float a, float b) {
+		return max(sign(b - a), 0.0);
+	}
+
 	void main()
 	{
-		if(openfl_TextureCoordv.y < splitA.y){
-
-			float x = wrap((splitA.z / openfl_TextureSize.x) + openfl_TextureCoordv.x);
-			gl_FragColor = flixel_texture2D(bitmap, vec2(x, openfl_TextureCoordv.y));
-		}
-		else{
-			gl_FragColor = flixel_texture2D(bitmap, openfl_TextureCoordv);
-		}
+		float x = openfl_TextureCoordv.x;
+		x += (splitA.z / openfl_TextureSize.x) * when_lt(openfl_TextureCoordv.y, splitA.y) * when_eq(splitA.x, 1.0);
+		gl_FragColor = flixel_texture2D(bitmap, vec2(wrap(x), openfl_TextureCoordv.y));
 	}
 	")
 	var splitDefinitions:Array<ParallaxSplit>;
