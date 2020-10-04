@@ -16,6 +16,8 @@ class ScrollingShader extends FlxShader
 	// z : amount to scroll by
 	uniform vec3 splitA;
 	uniform vec3 splitB;
+	uniform vec3 splitC;
+	uniform vec3 splitD;
 
 	float wrap(float toWrap){
 		return mod(toWrap, 1);
@@ -38,6 +40,8 @@ class ScrollingShader extends FlxShader
 		float x = openfl_TextureCoordv.x;
 		x += (splitA.z / openfl_TextureSize.x) * when_lt(openfl_TextureCoordv.y, splitA.y) * when_eq(splitA.x, 1.0);
 		x += (splitB.z / openfl_TextureSize.x) * when_lt(openfl_TextureCoordv.y, splitB.y) * when_eq(splitB.x, 1.0) * when_gt(openfl_TextureCoordv.y, splitA.y);
+		x += (splitC.z / openfl_TextureSize.x) * when_lt(openfl_TextureCoordv.y, splitC.y) * when_eq(splitC.x, 1.0) * when_gt(openfl_TextureCoordv.y, splitB.y);
+		x += (splitD.z / openfl_TextureSize.x) * when_lt(openfl_TextureCoordv.y, splitD.y) * when_eq(splitD.x, 1.0) * when_gt(openfl_TextureCoordv.y, splitC.y);
 
 		gl_FragColor = flixel_texture2D(bitmap, vec2(wrap(x), openfl_TextureCoordv.y));
 	}
@@ -50,6 +54,8 @@ class ScrollingShader extends FlxShader
 		var imageHeight = 512;
 
 		splitDefinitions = [
+			{SplitY: calculateShaderCoord(72, imageHeight), Speed: 0.5},
+			{SplitY: calculateShaderCoord(103, imageHeight), Speed: 3.0},
 			{SplitY: calculateShaderCoord(191, imageHeight), Speed: 10.0},
 			{SplitY: calculateShaderCoord(399, imageHeight), Speed: 30.0}
 		];
@@ -63,6 +69,16 @@ class ScrollingShader extends FlxShader
 		this.splitB.value[0] = 1;
 		this.splitB.value[1] = splitDefinitions[1].SplitY;
 		this.splitB.value[2] = splitDefinitions[1].Speed;
+
+		this.splitC.value = [0, 0, 0];
+		this.splitC.value[0] = 1;
+		this.splitC.value[1] = splitDefinitions[2].SplitY;
+		this.splitC.value[2] = splitDefinitions[2].Speed;
+
+		this.splitD.value = [0, 0, 0];
+		this.splitD.value[0] = 1;
+		this.splitD.value[1] = splitDefinitions[3].SplitY;
+		this.splitD.value[2] = splitDefinitions[3].Speed;
 	}
 
 	function calculateShaderCoord(pixelPosition:Int, imageSize:Int):Float
@@ -74,5 +90,7 @@ class ScrollingShader extends FlxShader
 	{
 		this.splitA.value[2] += (elapsed * splitDefinitions[0].Speed);
 		this.splitB.value[2] += (elapsed * splitDefinitions[1].Speed);
+		this.splitC.value[2] += (elapsed * splitDefinitions[2].Speed);
+		this.splitD.value[2] += (elapsed * splitDefinitions[3].Speed);
 	}
 }
