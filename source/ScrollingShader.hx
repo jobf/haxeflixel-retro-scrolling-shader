@@ -20,7 +20,7 @@ class ScrollingShader extends FlxShader
 	uniform vec3 splitD;
 
 	float wrap(float toWrap){
-		return mod(toWrap, 1);
+		return mod(toWrap, 1.0);
 	}
 	
 	float when_eq(float a, float b) {
