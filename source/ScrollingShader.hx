@@ -60,25 +60,25 @@ class ScrollingShader extends FlxShader
 			{SplitY: calculateShaderCoord(399, imageHeight), Speed: 30.0}
 		];
 
-		this.splitA.value = [0, 0, 0];
-		this.splitA.value[0] = 1;
-		this.splitA.value[1] = splitDefinitions[0].SplitY;
-		this.splitA.value[2] = splitDefinitions[0].Speed;
+		splitA.value = [0, 0, 0];
+		splitA.value[0] = 1;
+		splitA.value[1] = splitDefinitions[0].SplitY;
+		splitA.value[2] = splitDefinitions[0].Speed;
 
-		this.splitB.value = [0, 0, 0];
-		this.splitB.value[0] = 1;
-		this.splitB.value[1] = splitDefinitions[1].SplitY;
-		this.splitB.value[2] = splitDefinitions[1].Speed;
+		splitB.value = [0, 0, 0];
+		splitB.value[0] = 1;
+		splitB.value[1] = splitDefinitions[1].SplitY;
+		splitB.value[2] = splitDefinitions[1].Speed;
 
-		this.splitC.value = [0, 0, 0];
-		this.splitC.value[0] = 1;
-		this.splitC.value[1] = splitDefinitions[2].SplitY;
-		this.splitC.value[2] = splitDefinitions[2].Speed;
+		splitC.value = [0, 0, 0];
+		splitC.value[0] = 1;
+		splitC.value[1] = splitDefinitions[2].SplitY;
+		splitC.value[2] = splitDefinitions[2].Speed;
 
-		this.splitD.value = [0, 0, 0];
-		this.splitD.value[0] = 1;
-		this.splitD.value[1] = splitDefinitions[3].SplitY;
-		this.splitD.value[2] = splitDefinitions[3].Speed;
+		splitD.value = [0, 0, 0];
+		splitD.value[0] = 1;
+		splitD.value[1] = splitDefinitions[3].SplitY;
+		splitD.value[2] = splitDefinitions[3].Speed;
 	}
 
 	function calculateShaderCoord(pixelPosition:Int, imageSize:Int):Float
@@ -88,9 +88,9 @@ class ScrollingShader extends FlxShader
 
 	public function update(elapsed:Float)
 	{
-		this.splitA.value[2] += (elapsed * splitDefinitions[0].Speed);
-		this.splitB.value[2] += (elapsed * splitDefinitions[1].Speed);
-		this.splitC.value[2] += (elapsed * splitDefinitions[2].Speed);
-		this.splitD.value[2] += (elapsed * splitDefinitions[3].Speed);
+		splitA.value[2] += (elapsed * splitDefinitions[0].Speed);
+		splitB.value[2] += (elapsed * splitDefinitions[1].Speed);
+		splitC.value[2] += (elapsed * splitDefinitions[2].Speed);
+		splitD.value[2] += (elapsed * splitDefinitions[3].Speed);
 	}
 }
